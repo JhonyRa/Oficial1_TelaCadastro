@@ -1,10 +1,12 @@
 package com.jhonatanaguiar.cadastroprodutos_app;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
-public class Application {
+public class TelaDeCadastroApplication {
 
 	private JFrame frame;
 
@@ -15,7 +17,7 @@ public class Application {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Application window = new Application();
+					TelaDeCadastroApplication window = new TelaDeCadastroApplication();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +29,7 @@ public class Application {
 	/**
 	 * Create the application.
 	 */
-	public Application() {
+	public TelaDeCadastroApplication() {
 		initialize();
 	}
 
@@ -36,8 +38,17 @@ public class Application {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(50, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.setLayout(new BorderLayout());
+		
+		JLabel titulo = new JLabel("<html><h3>Tela Cadastro<h3><html>");
+		frame.add(titulo, BorderLayout.NORTH);
+		titulo.setHorizontalAlignment(JLabel.CENTER);
+		
+		TelaDeEntradaDeDados telaDeEntradaDeDados = new TelaDeEntradaDeDados();
+		frame.add(telaDeEntradaDeDados);
 	}
 
 }
