@@ -42,8 +42,8 @@ public class TelaDeEntradaDeDados extends JPanel {
 			quantidadeField.setBounds(75, 50, 300, 25);
 			this.add(quantidadeField);
 
-			JLabel valor = new JLabel("Valor:");
-			valor.setBounds(10, 90, 50, 25);
+			JLabel valor = new JLabel("Valor Unt:");
+			valor.setBounds(10, 90, 70, 25);
 			this.add(valor);
 
 			final JTextField valorField = new JTextField();
@@ -68,6 +68,8 @@ public class TelaDeEntradaDeDados extends JPanel {
 					nomeField.setText("");
 					quantidadeField.setText("");
 					valorField.setText("");
+					
+					nomeField.requestFocus();
 				}
 
 			});
@@ -84,17 +86,29 @@ public class TelaDeEntradaDeDados extends JPanel {
 
 					}
 
-					Object[] titulos = { "NOME", "QUANTIDADE", "VALOR" };
-					Object[][] linhas = new Object[produtos.size()][3];
+					Object[] colunas = { "NOME", "QUANTIDADE", "VALOR UNT(R$)", "TOTAL(R$)" };
+					Object[][] linhas = new Object[produtos.size()+2][4];
+					
 
 					for (int i = 0; i < produtos.size(); i++) {
 						Object[] linha = new Object[] { produtos.get(i).getNome().toUpperCase(),
-								produtos.get(i).getQuantidade(), produtos.get(i).getValor() };
+								produtos.get(i).getQuantidade(), produtos.get(i).getValor(), produtos.get(i).getValor() * produtos.get(i).getQuantidade() };
 						linhas[i] = linha;
 
 					}
+					
+					int somaQuantidade = 0;
+					double	totalValorGeral = 0;
 
-					JTable tabela = new JTable(linhas, titulos);
+					for (Produto produto : produtos) {
+						somaQuantidade += produto.getQuantidade();
+						totalValorGeral = totalValorGeral + (produto.getQuantidade() * produto.getValor());
+						
+					}
+					linhas[produtos.size()+1] = new Object[] {"TOTAL", somaQuantidade, "-", totalValorGeral };
+					
+
+					JTable tabela = new JTable(linhas, colunas);
 
 					JScrollPane jscroll = new JScrollPane(tabela);
 					jscroll.setSize(new Dimension(500, 500));
